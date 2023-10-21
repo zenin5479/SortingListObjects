@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 // Сортировка списка объектов
 
@@ -13,47 +11,89 @@ namespace SortingListObjects
         static void Main(string[] args)
         {
             // Создание списка.
-            List<Player> lst = new List<Player>();
-            lst.Add(new Player("John", 100));
-            lst.Add(new Player("Smith", 120));
-            lst.Add(new Player("Cait", 97));
-            lst.Add(new Player("Irene", 100));
-            lst.Add(new Player("Ben", 100));
-            lst.Add(new Player("Deniel", 88));
+            List<Player> lst = new List<Player>
+            {
+                new Player("John", 100),
+                new Player("Smith", 120),
+                new Player("Cait", 97),
+                new Player("Irene", 100),
+                new Player("Ben", 100),
+                new Player("Deniel", 88)
+            };
 
             // Сортировка с помощью list<t>. Sort() - метод
-            // Сортировка по одному элементу "" в порядке возрастания: Total
+            // Сортировка по элементу Total в порядке возрастания: 
             lst.Sort(delegate (Player x, Player y)
             {
                 return x.Total.CompareTo(y.Total);
             });
 
-            // Сортировка по одному элементу "" в порядке убывания: Total
+            Console.WriteLine("Сортировка по элементу Total в порядке возрастания:");
+            foreach (var variable in lst)
+            {
+                Console.WriteLine(variable.Total);
+            }
+
+            // Сортировка по элементу Total в порядке убывания: 
             lst.Sort(delegate (Player x, Player y)
             {
                 return y.Total.CompareTo(x.Total);
             });
 
+            Console.WriteLine("\n" + "Сортировка по элементу Total в порядке убывания:");
+            foreach (var variable in lst)
+            {
+                Console.WriteLine(variable.Total);
+            }
+
             // Сортировка по нескольким элементам:
             lst.Sort(delegate (Player x, Player y)
             {
-                // Сортировка по общему количеству в порядке убывания
+                // Сортировка по Total в порядке убывания
                 int a = y.Total.CompareTo(x.Total);
 
                 // У обоих игроков одинаковый Total.
-                // Сортировка по названию в порядке возрастания
+                // Сортировка по Name в порядке возрастания
                 if (a == 0)
-                    a = x.Name.CompareTo(y.Name);
+                    a = string.Compare(x.Name, y.Name, StringComparison.Ordinal);
 
                 return a;
             });
 
+            Console.WriteLine("\n" + "Сортировка по нескольким элементам. " +
+                              "\n" + "Сортировка по Total в порядке убывания." +
+                              "\n" + "Сортировка по Name в порядке возрастания.");
+            foreach (var variable in lst)
+            {
+                Console.WriteLine(variable.Name + " " + variable.Total);
+            }
+
             // Сортировка с помощью Linq требует меньшего количества синтаксиса.
             var result1 = lst.OrderBy(a => a.Total);
-
-            var result3 = lst.OrderBy(a => a.Total).ThenBy(a => a.Name);
+            Console.WriteLine("\n" + "Сортировка по Total в порядке возрастания Linq:");
+            foreach (var variable in result1)
+            {
+                Console.WriteLine(variable.Total);
+            }
 
             var result2 = lst.OrderByDescending(a => a.Total).ThenByDescending(a => a.Name);
+
+            Console.WriteLine("\n" + "Сортировка по нескольким элементам Linq." +
+                              "\n" + "Сортировка по Total в порядке убывания." +
+                              "\n" + "Сортировка по Name в порядке убывания.");
+            foreach (var variable in result2)
+            {
+                Console.WriteLine(variable.Name + " " + variable.Total);
+            }
+
+            var result3 = lst.OrderBy(a => a.Total).ThenBy(a => a.Name);
+            Console.WriteLine("\n" + "Сортировка по нескольким элементам Linq." +
+                              "\n" + "Сортировка по Total в порядке возрастания." +
+                              "\n" + "Сортировка по Name в порядке возрастания.");
+            foreach (var variable in result3)
+            {
+                Console.WriteLine(variable.Name + " " + variable.Total);
+            }
         }
     }
 }
