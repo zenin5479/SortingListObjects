@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 
 // Сортировка списка объектов
 
@@ -30,7 +28,7 @@ namespace SortingListObjects
                 return x.Total.CompareTo(y.Total);
             });
 
-            Console.WriteLine("Сортировка по элементу Total в порядке возрастания:");
+            Console.WriteLine("Сортировка по Total в порядке возрастания:");
             foreach (var variable in lst)
             {
                 Console.WriteLine(variable.Total);
@@ -42,7 +40,7 @@ namespace SortingListObjects
                 return y.Total.CompareTo(x.Total);
             });
 
-            Console.WriteLine("\n" + "Сортировка по элементу Total в порядке убывания:");
+            Console.WriteLine($"{Environment.NewLine}Сортировка по Total в порядке убывания:");
             foreach (var variable in lst)
             {
                 Console.WriteLine(variable.Total);
@@ -62,7 +60,7 @@ namespace SortingListObjects
                 return a;
             });
 
-            Console.WriteLine("\n" + "Сортировка по нескольким элементам. " +
+            Console.WriteLine($"{Environment.NewLine}Сортировка по нескольким элементам." +
                               "\n" + "Сортировка по Total в порядке убывания." +
                               "\n" + "Сортировка по Name в порядке возрастания.");
             foreach (var variable in lst)
@@ -72,15 +70,14 @@ namespace SortingListObjects
 
             // Сортировка с помощью Linq требует меньшего количества синтаксиса.
             var result1 = lst.OrderBy(a => a.Total);
-            Console.WriteLine("\n" + "Сортировка по Total в порядке возрастания Linq:");
+            Console.WriteLine($"{Environment.NewLine}Сортировка по Total в порядке возрастания Linq:");
             foreach (var variable in result1)
             {
                 Console.WriteLine(variable.Total);
             }
 
             var result2 = lst.OrderByDescending(a => a.Total).ThenByDescending(a => a.Name);
-
-            Console.WriteLine("\n" + "Сортировка по нескольким элементам Linq." +
+            Console.WriteLine($"{Environment.NewLine}Сортировка по нескольким элементам Linq." +
                               "\n" + "Сортировка по Total в порядке убывания." +
                               "\n" + "Сортировка по Name в порядке убывания.");
             foreach (var variable in result2)
@@ -89,7 +86,7 @@ namespace SortingListObjects
             }
 
             var result3 = lst.OrderBy(a => a.Total).ThenBy(a => a.Name);
-            Console.WriteLine("\n" + "Сортировка по нескольким элементам Linq." +
+            Console.WriteLine($"{Environment.NewLine}Сортировка по нескольким элементам Linq." +
                               "\n" + "Сортировка по Total в порядке возрастания." +
                               "\n" + "Сортировка по Name в порядке возрастания.");
             foreach (var variable in result3)
@@ -97,20 +94,34 @@ namespace SortingListObjects
                 Console.WriteLine(variable.Name + " " + variable.Total);
             }
 
-            Console.WriteLine("\n" + "Сортировка по нескольким элементам IComparer." +
+            Console.WriteLine($"{Environment.NewLine}Сортировка по нескольким элементам IComparer." +
                               "\n" + "Сортировка по Total в порядке возрастания." +
                               "\n" + "Сортировка по Name в порядке возрастания.");
             IComparer<Player> comparer = new MyPlayerClass();
             lst.Sort(comparer);
-
             foreach (var variable in lst)
             {
                 //Console.WriteLine(variable.Name + " " + variable.Total);
                 Console.WriteLine(string.Join(Environment.NewLine, variable.Name + " " + variable.Total));
             }
+
+            Console.WriteLine($"{Environment.NewLine}Сортировка по нескольким элементам IComparer. Печать методом PrintList" +
+                              "\n" + "Сортировка по Total в порядке возрастания." +
+                              "\n" + "Сортировка по Name в порядке возрастания.");
+            PrintList(lst);
+        }
+
+        // Метод для печати List<Player>
+        private static void PrintList(List<Player> player)
+        {
+            foreach (var players in player)
+            {
+                Console.WriteLine(players.Name + "\t" + players.Total);
+            }
         }
     }
 
+    // Класс для реализации IComparer<Player>
     public class MyPlayerClass : IComparer<Player>
     {
         public int Compare(Player x, Player y)
