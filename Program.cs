@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -94,6 +95,29 @@ namespace SortingListObjects
             {
                 Console.WriteLine(variable.Name + " " + variable.Total);
             }
+
+            Console.WriteLine("\n" + "Сортировка по нескольким элементам IComparer." +
+                              "\n" + "Сортировка по Total в порядке возрастания." +
+                              "\n" + "Сортировка по Name в порядке возрастания.");
+            IComparer<Player> comparer = new MyPlayerClass();
+            lst.Sort(comparer);
+            foreach (var variable in lst)
+            {
+                Console.WriteLine(variable.Name + " " + variable.Total);
+            }
+        }
+    }
+
+    public class MyPlayerClass : IComparer<Player>
+    {
+        public int Compare(Player x, Player y)
+        {
+            int compare = x.Total.CompareTo(y.Total);
+            if (compare == 0)
+            {
+                return string.Compare(x.Name, y.Name, StringComparison.Ordinal);
+            }
+            return compare;
         }
     }
 }
