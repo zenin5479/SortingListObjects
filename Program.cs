@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 // Сортировка списка объектов
 
@@ -101,9 +102,11 @@ namespace SortingListObjects
                               "\n" + "Сортировка по Name в порядке возрастания.");
             IComparer<Player> comparer = new MyPlayerClass();
             lst.Sort(comparer);
+
             foreach (var variable in lst)
             {
-                Console.WriteLine(variable.Name + " " + variable.Total);
+                //Console.WriteLine(variable.Name + " " + variable.Total);
+                Console.WriteLine(string.Join(Environment.NewLine, variable.Name + " " + variable.Total));
             }
         }
     }
