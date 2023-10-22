@@ -21,40 +21,6 @@ namespace SortingListObjects
                 new Player("Deniel", 88)
             };
 
-            //
-
-            // Сортировка с помощью list<t>. Sort() - метод
-            // Сортировка по значению Total: 
-            lst.Sort(delegate (Player x, Player y)
-            {
-                //if (x == null) return 0;
-                //if (y == null) return 0;
-                //int compare = x.Total.CompareTo(y.Total);
-                //if (compare == 0) return string.Compare(x.Name, y.Name, StringComparison.Ordinal);
-                //return compare;
-
-                int r = 100;
-                bool rt = r.Equals(x.Total);
-                if (rt)
-                {
-                    return x.Total;
-                }
-
-                return 0;
-            });
-
-            Console.WriteLine("Сортировка значению Total:");
-            foreach (var variable in lst)
-            {
-                Console.WriteLine(variable.Total);
-            }
-
-
-
-            //
-
-
-
             // Сортировка с помощью list<t>. Sort() - метод
             // Сортировка по элементу Total в порядке возрастания: 
             lst.Sort(delegate (Player x, Player y)
