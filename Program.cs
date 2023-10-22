@@ -8,7 +8,7 @@ namespace SortingListObjects
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             // Создание списка.
             List<Player> lst = new List<Player>
@@ -126,12 +126,12 @@ namespace SortingListObjects
     {
         public int Compare(Player x, Player y)
         {
+            if (x == null) return 0;
+            if (y == null) return 0;
             int compare = x.Total.CompareTo(y.Total);
-            if (compare == 0)
-            {
-                return string.Compare(x.Name, y.Name, StringComparison.Ordinal);
-            }
+            if (compare == 0) return string.Compare(x.Name, y.Name, StringComparison.Ordinal);
             return compare;
+
         }
     }
 }
